@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping("/exchange")
 public class MoneyExchangeController {
 
-//    private final UserService userService;
-//    private final CurrencyService currencyService;
     private final MoneyExchangeService moneyExchangeService;
 
     @PostMapping("/{id}")

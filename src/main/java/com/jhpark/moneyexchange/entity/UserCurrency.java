@@ -15,11 +15,11 @@ public class UserCurrency extends BaseEntity { // User 와 Currency 의 중간�
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "to_currency_id")
     private Currency currency;
 
