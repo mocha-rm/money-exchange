@@ -1,6 +1,6 @@
 package com.jhpark.moneyexchange.entity;
 
-import com.jhpark.moneyexchange.ExchangeStatus;
+import com.jhpark.moneyexchange.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,5 +26,15 @@ public class UserCurrency extends BaseEntity { // User 와 Currency 의 중간�
     private BigDecimal amountInKrw;
     private BigDecimal amountAfterExchange;
 
-    private ExchangeStatus exchangeStatus;
+    private ExchangeRequestStatus exchangeRequestStatus;
+
+    public UserCurrency(User user, Currency currency, BigDecimal amountInKrw, BigDecimal amountAfterExchange, ExchangeRequestStatus exchangeStatus) {
+        this.user = user;
+        this.currency = currency;
+        this.amountInKrw = amountInKrw;
+        this.amountAfterExchange = amountAfterExchange;
+        this.exchangeRequestStatus = exchangeStatus;
+    }
+
+    protected UserCurrency() {};
 }
