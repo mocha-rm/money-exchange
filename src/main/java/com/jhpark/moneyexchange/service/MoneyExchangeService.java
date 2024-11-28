@@ -51,7 +51,7 @@ public class MoneyExchangeService {
     }
 
     public List<ExchangeResponseDto> findExchangeRequests(Long id) {
-        return moneyExchangeRepository.findByUserId(id).stream()
+        return moneyExchangeRepository.findByUserIdWithJoin(id).stream()
                 .map(ExchangeResponseDto::toDto)
                 .toList();
     }
@@ -61,13 +61,15 @@ public class MoneyExchangeService {
                 new CustomException(CustomExceptionCode.EXCHANGE_REQUEST_NOT_FOUND)
         );
 
+        if (exchangedRequestData.getExchangeRequestStatus().equals(exchangeStatusRequestDto.getExchangeRequestStatus())) {
+            throw new CustomException(CustomExceptionCode.REQUEST_DUPLICATED);
+        }
+
         exchangedRequestData.patchExchangeRequestStatus(exchangeStatusRequestDto.getExchangeRequestStatus());
         moneyExchangeRepository.save(exchangedRequestData);
         return new ExchangeResponseDto(exchangedRequestData);
     }
 
-
-    // 다른 통화가 추가 될 상황도 고려하기, 매개변수로 어떤 통화로 환전할지 넣는건 어떤지?
     private BigDecimal calculateExchange(BigDecimal amountInKrw, BigDecimal exchangeRate) {
         if (exchangeRate.compareTo(BigDecimal.ZERO) == 0) {
             throw new ArithmeticException("잘못된 환율 입니다.");
