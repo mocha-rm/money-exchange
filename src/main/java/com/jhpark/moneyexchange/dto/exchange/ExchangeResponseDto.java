@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange.dto;
+package com.jhpark.moneyexchange.dto.exchange;
 
 import com.jhpark.moneyexchange.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.entity.UserCurrency;

@@ -1,8 +1,8 @@
 package com.jhpark.moneyexchange.controller;
 
-import com.jhpark.moneyexchange.dto.ExchangeRequestDto;
-import com.jhpark.moneyexchange.dto.ExchangeResponseDto;
-import com.jhpark.moneyexchange.dto.ExchangeStatusRequestDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeRequestDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeResponseDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeStatusRequestDto;
 import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.service.MoneyExchangeService;
 import jakarta.validation.Valid;

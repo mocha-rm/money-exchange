@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange.dto;
+package com.jhpark.moneyexchange.dto.user;
 
 import com.jhpark.moneyexchange.entity.User;
 import lombok.Getter;

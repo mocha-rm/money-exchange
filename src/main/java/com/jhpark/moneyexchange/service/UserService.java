@@ -1,7 +1,7 @@
 package com.jhpark.moneyexchange.service;
 
-import com.jhpark.moneyexchange.dto.UserRequestDto;
-import com.jhpark.moneyexchange.dto.UserResponseDto;
+import com.jhpark.moneyexchange.dto.user.UserRequestDto;
+import com.jhpark.moneyexchange.dto.user.UserResponseDto;
 import com.jhpark.moneyexchange.entity.User;
 import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.exception.CustomExceptionCode;

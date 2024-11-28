@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange.dto;
+package com.jhpark.moneyexchange.dto.currency;
 
 import com.jhpark.moneyexchange.entity.Currency;
 import jakarta.validation.constraints.*;

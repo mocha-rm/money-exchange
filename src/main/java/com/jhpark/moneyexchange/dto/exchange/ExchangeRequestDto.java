@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange.dto;
+package com.jhpark.moneyexchange.dto.exchange;
 
 import jakarta.validation.constraints.*;
 import lombok.Getter;

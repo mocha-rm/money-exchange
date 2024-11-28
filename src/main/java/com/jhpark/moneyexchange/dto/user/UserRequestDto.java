@@ -1,7 +1,6 @@
-package com.jhpark.moneyexchange.dto;
+package com.jhpark.moneyexchange.dto.user;
 
 import com.jhpark.moneyexchange.entity.User;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

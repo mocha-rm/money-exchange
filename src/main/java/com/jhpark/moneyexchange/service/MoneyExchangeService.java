@@ -1,9 +1,9 @@
 package com.jhpark.moneyexchange.service;
 
 import com.jhpark.moneyexchange.ExchangeRequestStatus;
-import com.jhpark.moneyexchange.dto.ExchangeRequestDto;
-import com.jhpark.moneyexchange.dto.ExchangeResponseDto;
-import com.jhpark.moneyexchange.dto.ExchangeStatusRequestDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeRequestDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeResponseDto;
+import com.jhpark.moneyexchange.dto.exchange.ExchangeStatusRequestDto;
 import com.jhpark.moneyexchange.entity.Currency;
 import com.jhpark.moneyexchange.entity.User;
 import com.jhpark.moneyexchange.entity.UserCurrency;
@@ -13,9 +13,7 @@ import com.jhpark.moneyexchange.repository.CurrencyRepository;
 import com.jhpark.moneyexchange.repository.MoneyExchangeRepository;
 import com.jhpark.moneyexchange.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

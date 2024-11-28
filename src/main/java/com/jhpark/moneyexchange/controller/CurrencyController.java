@@ -1,7 +1,7 @@
 package com.jhpark.moneyexchange.controller;
 
-import com.jhpark.moneyexchange.dto.CurrencyRequestDto;
-import com.jhpark.moneyexchange.dto.CurrencyResponseDto;
+import com.jhpark.moneyexchange.dto.currency.CurrencyRequestDto;
+import com.jhpark.moneyexchange.dto.currency.CurrencyResponseDto;
 import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.service.CurrencyService;
 import jakarta.validation.Valid;
