@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/exchange")
@@ -20,5 +22,10 @@ public class MoneyExchangeController {
     @PostMapping("/{id}")
     public ResponseEntity<ExchangeResponseDto> exchangeMoney(@PathVariable Long id, @RequestBody ExchangeRequestDto exchangeRequestDto) {
         return new ResponseEntity<>(moneyExchangeService.exchange(id, exchangeRequestDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ExchangeResponseDto>> viewExchangeRequests(@PathVariable Long id) {
+        return new ResponseEntity<>(moneyExchangeService.findExchangeRequests(id), HttpStatus.OK);
     }
 }

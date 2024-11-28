@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +36,7 @@ public class MoneyExchangeService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 통화를 찾을 수 없습니다.")
         );
 
-        UserCurrency exchanged = new UserCurrency(
+        UserCurrency exchangedRequest = new UserCurrency(
                 findUser,
                 findCurrency,
                 exchangeRequestDto.getExchangeAmount(),
@@ -44,8 +45,14 @@ public class MoneyExchangeService {
         );
 
         //DB 저장
-        moneyExchangeRepository.save(exchanged);
-        return new ExchangeResponseDto(exchanged);
+        moneyExchangeRepository.save(exchangedRequest);
+        return new ExchangeResponseDto(exchangedRequest);
+    }
+
+    public List<ExchangeResponseDto> findExchangeRequests(Long id) {
+        return moneyExchangeRepository.findByUserId(id).stream()
+                .map(ExchangeResponseDto::toDto)
+                .toList();
     }
 
 

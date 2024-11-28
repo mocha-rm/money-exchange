@@ -8,10 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MoneyExchangeRepository extends JpaRepository<UserCurrency, Long> {
     @Query("select uc.user from UserCurrency uc where uc.user.id = :userId")
     User findUserByUserId(@Param("userId") Long userId);
+
+    List<UserCurrency> findByUserId(Long id);
 
     @Query("select uc.currency from UserCurrency uc where uc.currency.currencyName = :currencyName")
     Currency findCurrencyByCurrencyName(@Param("currencyName") String currencyName);
