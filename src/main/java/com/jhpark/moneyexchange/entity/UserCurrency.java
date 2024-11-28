@@ -23,9 +23,13 @@ public class UserCurrency extends BaseEntity { // User 와 Currency 의 중간�
     @JoinColumn(name = "to_currency_id")
     private Currency currency;
 
+    @Column(nullable = false)
     private BigDecimal amountInKrw;
+
+    @Column(nullable = false)
     private BigDecimal amountAfterExchange;
 
+    @Column(nullable = false)
     private ExchangeRequestStatus exchangeRequestStatus;
 
     public void patchExchangeRequestStatus(ExchangeRequestStatus status) {

@@ -15,12 +15,19 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/exchange")
+@RequestMapping("/exchange/{id}")
 public class MoneyExchangeController {
 
     private final MoneyExchangeService moneyExchangeService;
 
-    @PostMapping("/{id}")
+    /**
+     * 환전 요청 생성
+     * @param id (유저 ID)
+     * @param exchangeRequestDto (환전에 필요한 요청 정보 전달)
+     * @return (ExchangeResponseDto)
+     * @throws CustomException (유저 또는 통화를 찾을 수 없을 시 예외 발생)
+     */
+    @PostMapping
     public ResponseEntity<ExchangeResponseDto> sendExchangeRequest(
             @PathVariable Long id,
             @RequestBody @Valid ExchangeRequestDto exchangeRequestDto
@@ -28,12 +35,24 @@ public class MoneyExchangeController {
         return new ResponseEntity<>(moneyExchangeService.exchange(id, exchangeRequestDto), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    /**
+     * 특정 유저가 생성한 환전 요청 전부 조회
+     * @param id (유저 ID)
+     * @return (List<ExchangeResponseDto>)
+     */
+    @GetMapping
     public ResponseEntity<List<ExchangeResponseDto>> viewExchangeRequests(@PathVariable Long id) {
         return new ResponseEntity<>(moneyExchangeService.findExchangeRequests(id), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
+    /**
+     * 환전 요청 상태 변경하기
+     * @param id (환전 요청 ID)
+     * @param exchangeStatusRequestDto (요청 상태 변경에 필요한 요청 정보 전달, NORMAL, CANCELLED enum 타입으로 관리)
+     * @return ExchangeResponseDto
+     * @throws CustomException (요청이 없거나, 중복되었을 경우 예외 발생)
+     */
+    @PatchMapping
     public ResponseEntity<ExchangeResponseDto> patchExchangeRequestStatus(
             @PathVariable Long id,
             @RequestBody @Valid ExchangeStatusRequestDto exchangeStatusRequestDto

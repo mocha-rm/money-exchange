@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class CurrencyRequestDto {
 
     @NotBlank
+    @Size(min = 2, max = 10, message = "통화 이름은 최소 2자에서 최대 10자 사이로 입력해주세요.")
     private final String currencyName;
 
     @NotNull
@@ -20,6 +21,7 @@ public class CurrencyRequestDto {
     private final BigDecimal exchangeRate;
 
     @NotBlank
+    @Size(min = 1, max = 3, message = "심볼은 최소 1자에서 최대 3자 사이로 입력해주세요.")
     private final String symbol;
 
     public Currency toEntity() {
