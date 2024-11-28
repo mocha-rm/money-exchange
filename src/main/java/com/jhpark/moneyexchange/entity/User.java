@@ -1,12 +1,13 @@
 package com.jhpark.moneyexchange.entity;
 
+import com.jhpark.moneyexchange.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
