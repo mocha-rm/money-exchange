@@ -2,7 +2,9 @@ package com.jhpark.moneyexchange.controller;
 
 import com.jhpark.moneyexchange.dto.UserRequestDto;
 import com.jhpark.moneyexchange.dto.UserResponseDto;
+import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto dto) {
-
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid UserRequestDto dto) {
         return new ResponseEntity<>(userService.save(dto), HttpStatus.CREATED);
     }
 
@@ -29,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) throws CustomException {
         return ResponseEntity.ok().body(userService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws CustomException{
         userService.deleteUserById(id);
         return ResponseEntity.ok().body("정상적으로 삭제되었습니다.");
     }

@@ -7,6 +7,8 @@ import com.jhpark.moneyexchange.dto.ExchangeStatusRequestDto;
 import com.jhpark.moneyexchange.entity.Currency;
 import com.jhpark.moneyexchange.entity.User;
 import com.jhpark.moneyexchange.entity.UserCurrency;
+import com.jhpark.moneyexchange.exception.CustomException;
+import com.jhpark.moneyexchange.exception.CustomExceptionCode;
 import com.jhpark.moneyexchange.repository.CurrencyRepository;
 import com.jhpark.moneyexchange.repository.MoneyExchangeRepository;
 import com.jhpark.moneyexchange.repository.UserRepository;
@@ -27,14 +29,14 @@ public class MoneyExchangeService {
     private final UserRepository userRepository;
     private final CurrencyRepository currencyRepository;
 
-    public ExchangeResponseDto exchange(Long id, ExchangeRequestDto exchangeRequestDto) {
+    public ExchangeResponseDto exchange(Long id, ExchangeRequestDto exchangeRequestDto) throws CustomException{
         //로직 수행
         User findUser = userRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 유저를 찾을 수 없습니다.")
+                new CustomException(CustomExceptionCode.USER_NOT_FOUND)
         );
 
         Currency findCurrency = currencyRepository.findByCurrencyName(exchangeRequestDto.getCurrencyName()).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 통화를 찾을 수 없습니다.")
+                new CustomException(CustomExceptionCode.CURRENCY_NOT_FOUND)
         );
 
         UserCurrency exchangedRequest = new UserCurrency(
@@ -56,9 +58,9 @@ public class MoneyExchangeService {
                 .toList();
     }
 
-    public ExchangeResponseDto patchExchangeRequestStatus(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) {
+    public ExchangeResponseDto patchExchangeRequestStatus(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) throws CustomException {
         UserCurrency exchangedRequestData = moneyExchangeRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "요청을 찾을 수 없습니다.")
+                new CustomException(CustomExceptionCode.EXCHANGE_REQUEST_NOT_FOUND)
         );
 
         exchangedRequestData.patchExchangeRequestStatus(exchangeStatusRequestDto.getExchangeRequestStatus());

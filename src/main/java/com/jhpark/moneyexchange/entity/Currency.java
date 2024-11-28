@@ -15,6 +15,7 @@ public class Currency extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String currencyName;
     private BigDecimal exchangeRate;
     private String symbol;

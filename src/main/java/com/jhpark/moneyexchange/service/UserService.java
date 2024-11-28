@@ -3,6 +3,8 @@ package com.jhpark.moneyexchange.service;
 import com.jhpark.moneyexchange.dto.UserRequestDto;
 import com.jhpark.moneyexchange.dto.UserResponseDto;
 import com.jhpark.moneyexchange.entity.User;
+import com.jhpark.moneyexchange.exception.CustomException;
+import com.jhpark.moneyexchange.exception.CustomExceptionCode;
 import com.jhpark.moneyexchange.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,12 +24,12 @@ public class UserService {
         return new UserResponseDto(savedUser);
     }
 
-    public UserResponseDto findById(Long id) {
+    public UserResponseDto findById(Long id) throws CustomException {
         return new UserResponseDto(findUserById(id));
     }
 
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+    public User findUserById(Long id) throws CustomException {
+        return userRepository.findById(id).orElseThrow(() -> new CustomException(CustomExceptionCode.USER_NOT_FOUND));
     }
 
     public List<UserResponseDto> findAll() {
@@ -35,7 +37,7 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUserById(Long id) {
+    public void deleteUserById(Long id) throws CustomException {
         this.findUserById(id);
         userRepository.deleteById(id);
     }

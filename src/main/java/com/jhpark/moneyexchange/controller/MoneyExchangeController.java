@@ -3,7 +3,9 @@ package com.jhpark.moneyexchange.controller;
 import com.jhpark.moneyexchange.dto.ExchangeRequestDto;
 import com.jhpark.moneyexchange.dto.ExchangeResponseDto;
 import com.jhpark.moneyexchange.dto.ExchangeStatusRequestDto;
+import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.service.MoneyExchangeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,10 @@ public class MoneyExchangeController {
     private final MoneyExchangeService moneyExchangeService;
 
     @PostMapping("/{id}")
-    public ResponseEntity<ExchangeResponseDto> sendExchangeRequest(@PathVariable Long id, @RequestBody ExchangeRequestDto exchangeRequestDto) {
+    public ResponseEntity<ExchangeResponseDto> sendExchangeRequest(
+            @PathVariable Long id,
+            @RequestBody @Valid ExchangeRequestDto exchangeRequestDto
+    ) throws CustomException {
         return new ResponseEntity<>(moneyExchangeService.exchange(id, exchangeRequestDto), HttpStatus.OK);
     }
 
@@ -29,7 +34,10 @@ public class MoneyExchangeController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ExchangeResponseDto> patchExchangeRequestStatus(@PathVariable Long id, @RequestBody ExchangeStatusRequestDto exchangeStatusRequestDto) {
+    public ResponseEntity<ExchangeResponseDto> patchExchangeRequestStatus(
+            @PathVariable Long id,
+            @RequestBody @Valid ExchangeStatusRequestDto exchangeStatusRequestDto
+    ) throws CustomException {
         return new ResponseEntity<>(moneyExchangeService.patchExchangeRequestStatus(id, exchangeStatusRequestDto), HttpStatus.OK);
     }
 }

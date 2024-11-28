@@ -2,7 +2,9 @@ package com.jhpark.moneyexchange.controller;
 
 import com.jhpark.moneyexchange.dto.CurrencyRequestDto;
 import com.jhpark.moneyexchange.dto.CurrencyResponseDto;
+import com.jhpark.moneyexchange.exception.CustomException;
 import com.jhpark.moneyexchange.service.CurrencyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ public class CurrencyController {
     private final CurrencyService currencyService;
 
     @PostMapping
-    public ResponseEntity<CurrencyResponseDto> createCurrency(@RequestBody CurrencyRequestDto currencyRequestDto) {
+    public ResponseEntity<CurrencyResponseDto> createCurrency(@RequestBody @Valid CurrencyRequestDto currencyRequestDto) throws CustomException {
         return new ResponseEntity<>(currencyService.save(currencyRequestDto), HttpStatus.CREATED);
     }
 
@@ -28,7 +30,7 @@ public class CurrencyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CurrencyResponseDto> findCurrency(@PathVariable Long id) {
+    public ResponseEntity<CurrencyResponseDto> findCurrency(@PathVariable Long id) throws CustomException {
         return ResponseEntity.ok().body(currencyService.findById(id));
     }
 }
