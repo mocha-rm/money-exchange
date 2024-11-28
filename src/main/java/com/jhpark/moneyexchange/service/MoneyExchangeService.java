@@ -3,6 +3,7 @@ package com.jhpark.moneyexchange.service;
 import com.jhpark.moneyexchange.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.dto.ExchangeRequestDto;
 import com.jhpark.moneyexchange.dto.ExchangeResponseDto;
+import com.jhpark.moneyexchange.dto.ExchangeStatusRequestDto;
 import com.jhpark.moneyexchange.entity.Currency;
 import com.jhpark.moneyexchange.entity.User;
 import com.jhpark.moneyexchange.entity.UserCurrency;
@@ -53,6 +54,16 @@ public class MoneyExchangeService {
         return moneyExchangeRepository.findByUserId(id).stream()
                 .map(ExchangeResponseDto::toDto)
                 .toList();
+    }
+
+    public ExchangeResponseDto patchExchangeRequestStatus(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) {
+        UserCurrency exchangedRequestData = moneyExchangeRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "요청을 찾을 수 없습니다.")
+        );
+
+        exchangedRequestData.patchExchangeRequestStatus(exchangeStatusRequestDto.getExchangeRequestStatus());
+        moneyExchangeRepository.save(exchangedRequestData);
+        return new ExchangeResponseDto(exchangedRequestData);
     }
 
 

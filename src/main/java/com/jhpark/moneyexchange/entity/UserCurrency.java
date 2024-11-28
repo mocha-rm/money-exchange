@@ -28,6 +28,10 @@ public class UserCurrency extends BaseEntity { // User 와 Currency 의 중간�
 
     private ExchangeRequestStatus exchangeRequestStatus;
 
+    public void patchExchangeRequestStatus(ExchangeRequestStatus status) {
+        this.exchangeRequestStatus = status;
+    }
+
     public UserCurrency(User user, Currency currency, BigDecimal amountInKrw, BigDecimal amountAfterExchange, ExchangeRequestStatus exchangeStatus) {
         this.user = user;
         this.currency = currency;
