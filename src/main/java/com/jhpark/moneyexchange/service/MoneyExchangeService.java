@@ -72,7 +72,7 @@ public class MoneyExchangeService {
 
     //환율 계산
     private BigDecimal calculateExchange(BigDecimal amountInKrw, BigDecimal exchangeRate) {
-        if (exchangeRate.compareTo(BigDecimal.ZERO) == 0) {
+        if (exchangeRate.compareTo(BigDecimal.ZERO) <= 0) {
             throw new ArithmeticException("잘못된 환율 입니다.");
         }
         return amountInKrw.divide(exchangeRate, 2, RoundingMode.HALF_UP);
