@@ -42,7 +42,7 @@ public class MoneyExchangeService {
                 findUser,
                 findCurrency,
                 exchangeRequestDto.getExchangeAmount(),
-                calculateExchange(exchangeRequestDto.getExchangeAmount(), findCurrency.getExchangeRate()),
+                calculateExchange(exchangeRequestDto.getExchangeAmount(), findCurrency.getExchangeRate(), exchangeRequestDto.getCurrencyName()),
                 ExchangeRequestStatus.NORMAL
         );
 
@@ -88,11 +88,23 @@ public class MoneyExchangeService {
         return new ExchangeResponseDto(exchangedRequestData);
     }
 
-    //환율 계산
-    private BigDecimal calculateExchange(BigDecimal amountInKrw, BigDecimal exchangeRate) {
+    /*
+     * 환율 계산
+     * 1달러, 1엔, 1위안 기준
+     * 달러) 1,0000원 / 1395.00
+     * 엔) 1,0000원 / 9.30
+     * 위안) 1,000원 / 192.30
+     */
+    private BigDecimal calculateExchange(BigDecimal amountInKrw, BigDecimal exchangeRate, String currencyName) {
         if (exchangeRate.compareTo(BigDecimal.ZERO) <= 0) {
             throw new ArithmeticException("잘못된 환율 입니다.");
         }
-        return amountInKrw.divide(exchangeRate, 2, RoundingMode.HALF_UP);
+
+        return switch (currencyName) {
+            case "USD", "CNY" ->
+                    amountInKrw.divide(exchangeRate, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP);
+            case "Yen" -> amountInKrw.divide(exchangeRate, 0, RoundingMode.HALF_UP);
+            default -> throw new IllegalArgumentException("지원하지 않는 통화입니다.");
+        };
     }
 }
