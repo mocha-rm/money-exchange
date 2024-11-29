@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @RequiredArgsConstructor
@@ -16,6 +17,8 @@ public class ExchangeResponseDto {
     private final BigDecimal amountInKrw;
     private final BigDecimal amountAfterExchange;
     private final ExchangeRequestStatus exchangeRequestStatus;
+    private final LocalDateTime createdDate;
+    private final LocalDateTime modDate;
 
     public ExchangeResponseDto(UserCurrency userCurrency) {
         this.id = userCurrency.getId();
@@ -24,6 +27,8 @@ public class ExchangeResponseDto {
         this.amountInKrw = userCurrency.getAmountInKrw();
         this.amountAfterExchange = userCurrency.getAmountAfterExchange();
         this.exchangeRequestStatus = userCurrency.getExchangeRequestStatus();
+        this.createdDate = userCurrency.getCreatedDate();
+        this.modDate = userCurrency.getModDate();
     }
 
     public static ExchangeResponseDto toDto(UserCurrency userCurrency) {
@@ -33,7 +38,9 @@ public class ExchangeResponseDto {
                 userCurrency.getCurrency().getCurrencyName(),
                 userCurrency.getAmountInKrw(),
                 userCurrency.getAmountAfterExchange(),
-                userCurrency.getExchangeRequestStatus()
+                userCurrency.getExchangeRequestStatus(),
+                userCurrency.getCreatedDate(),
+                userCurrency.getModDate()
         );
     }
 }
