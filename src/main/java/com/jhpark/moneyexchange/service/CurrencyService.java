@@ -8,6 +8,7 @@ import com.jhpark.moneyexchange.exception.CustomExceptionCode;
 import com.jhpark.moneyexchange.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class CurrencyService {
 
     private final CurrencyRepository currencyRepository;
 
-
+    @Transactional
     public CurrencyResponseDto save(CurrencyRequestDto currencyRequestDto) throws CustomException{
         if (currencyRepository.existsByCurrencyName(currencyRequestDto.getCurrencyName())) {
             throw new CustomException(CustomExceptionCode.CURRENCY_DUPLICATED);

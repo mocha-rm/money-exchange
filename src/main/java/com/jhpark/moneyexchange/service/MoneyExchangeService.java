@@ -14,6 +14,7 @@ import com.jhpark.moneyexchange.repository.MoneyExchangeRepository;
 import com.jhpark.moneyexchange.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,6 +29,7 @@ public class MoneyExchangeService {
     private final UserRepository userRepository;
     private final CurrencyRepository currencyRepository;
 
+    @Transactional
     public ExchangeResponseDto exchange(Long id, ExchangeRequestDto exchangeRequestDto) throws CustomException {
         //로직 수행
         User findUser = userRepository.findById(id).orElseThrow(() ->
@@ -74,6 +76,7 @@ public class MoneyExchangeService {
         );
     }
 
+    @Transactional
     public ExchangeResponseDto patchExchangeRequestStatus(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) throws CustomException {
         UserCurrency exchangedRequestData = moneyExchangeRepository.findById(id).orElseThrow(() ->
                 new CustomException(CustomExceptionCode.EXCHANGE_REQUEST_NOT_FOUND)
