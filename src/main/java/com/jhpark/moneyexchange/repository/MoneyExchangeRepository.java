@@ -13,4 +13,7 @@ public interface MoneyExchangeRepository extends JpaRepository<UserCurrency, Lon
 
     @Query("select uc from UserCurrency uc join fetch uc.user join fetch uc.currency where uc.user.id = :userId")
     List<UserCurrency> findByUserIdWithJoin(@Param("userId") Long userId);
+
+    @Query("select count(uc), coalesce(sum(uc.amountInKrw), 0) from UserCurrency uc where uc.user.id = :userId")
+    List<Object[]> findCountAndSumByUserId(@Param("userId") Long userId);
 }

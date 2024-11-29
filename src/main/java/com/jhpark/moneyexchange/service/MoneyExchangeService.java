@@ -1,6 +1,6 @@
 package com.jhpark.moneyexchange.service;
 
-import com.jhpark.moneyexchange.ExchangeRequestStatus;
+import com.jhpark.moneyexchange.common.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.dto.exchange.ExchangeRequestDto;
 import com.jhpark.moneyexchange.dto.exchange.ExchangeResponseDto;
 import com.jhpark.moneyexchange.dto.exchange.ExchangeStatusRequestDto;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class MoneyExchangeService {
     private final UserRepository userRepository;
     private final CurrencyRepository currencyRepository;
 
-    public ExchangeResponseDto exchange(Long id, ExchangeRequestDto exchangeRequestDto) throws CustomException{
+    public ExchangeResponseDto exchange(Long id, ExchangeRequestDto exchangeRequestDto) throws CustomException {
         //로직 수행
         User findUser = userRepository.findById(id).orElseThrow(() ->
                 new CustomException(CustomExceptionCode.USER_NOT_FOUND)
@@ -54,6 +55,23 @@ public class MoneyExchangeService {
         return moneyExchangeRepository.findByUserIdWithJoin(id).stream()
                 .map(ExchangeResponseDto::toDto)
                 .toList();
+    }
+
+    public Map<String, Object> getCountAndSum(Long userId) {
+        List<Object[]> resultList = moneyExchangeRepository.findCountAndSumByUserId(userId);
+
+        if (resultList.isEmpty()) {
+            return Map.of("sum", BigDecimal.ZERO, "count", 0L);
+        }
+
+        Object[] result = resultList.get(0);
+        Long count = ((Number) result[0]).longValue();
+        BigDecimal sum = (BigDecimal) result[1];
+
+        return Map.of(
+                "totalAmountInKrw", sum,
+                "count", count
+        );
     }
 
     public ExchangeResponseDto patchExchangeRequestStatus(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) throws CustomException {

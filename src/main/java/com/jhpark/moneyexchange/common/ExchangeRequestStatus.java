@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange;
+package com.jhpark.moneyexchange.common;
 
 public enum ExchangeRequestStatus {
     NORMAL,

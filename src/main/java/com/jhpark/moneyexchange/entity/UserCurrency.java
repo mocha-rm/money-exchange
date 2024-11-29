@@ -1,6 +1,6 @@
 package com.jhpark.moneyexchange.entity;
 
-import com.jhpark.moneyexchange.ExchangeRequestStatus;
+import com.jhpark.moneyexchange.common.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;

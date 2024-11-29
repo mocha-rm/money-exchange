@@ -1,6 +1,6 @@
 package com.jhpark.moneyexchange.dto.exchange;
 
-import com.jhpark.moneyexchange.ExchangeRequestStatus;
+import com.jhpark.moneyexchange.common.ExchangeRequestStatus;
 import com.jhpark.moneyexchange.entity.UserCurrency;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

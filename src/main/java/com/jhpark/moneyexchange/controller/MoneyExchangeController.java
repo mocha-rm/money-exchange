@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -43,6 +44,17 @@ public class MoneyExchangeController {
     @GetMapping
     public ResponseEntity<List<ExchangeResponseDto>> viewExchangeRequests(@PathVariable Long id) {
         return new ResponseEntity<>(moneyExchangeService.findExchangeRequests(id), HttpStatus.OK);
+    }
+
+    /**
+     * 특정 유저가 요청한 횟수와 총 금액 조회
+     * @param id (유저 ID)
+     * @return Map<String, Object>
+     */
+    @GetMapping("/total")
+    public ResponseEntity<Map<String, Object>> viewExchangeCountAndTotal(@PathVariable Long id) {
+        Map<String, Object> response = moneyExchangeService.getCountAndSum(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**

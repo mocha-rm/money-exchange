@@ -1,4 +1,4 @@
-package com.jhpark.moneyexchange;
+package com.jhpark.moneyexchange.common;
 
 import com.jhpark.moneyexchange.entity.Currency;
 import com.jhpark.moneyexchange.repository.CurrencyRepository;

@@ -447,6 +447,36 @@ Success HTTP Status : 200
 </details>
 
 <details>
+<summary style="font-size: 1.17em; font-weight: bold;">총 환전 횟수 및 금액 조회</summary>
+<div markdown="1">
+
+### Request
+
+```
+GET 'http://localhost:8080/exchange/{userId}/total'
+```
+
+### Response
+
+| **이름**           | **타입**        | **설명**           | **필수여부** |
+|------------------|---------------|------------------| --- |
+| totalAmountInKrw | DECIMAL(38,2) | 환전 요청한 총 금액(KRW) | Y |
+| count            | BIGINT        | 환전 요청 총 횟수       | Y |
+
+
+Success HTTP Status : 200
+
+```json
+{
+  "totalAmountInKrw": 20000.00,
+  "count": 4
+}
+```
+
+</div>
+</details>
+
+<details>
 <summary style="font-size: 1.17em; font-weight: bold;">환전 요청 변경</summary>
 <div markdown="1">
 
@@ -505,11 +535,11 @@ Fail HTTP Status : 400
 
 ```json
 {
-    "timestamp": "2024-11-29T01:32:55.344+00:00",
-    "status": 400,
-    "error": "Bad Request",
-    "message": "JSON parse error: Cannot deserialize value of type `com.jhpark.moneyexchange.ExchangeRequestStatus` from String \"cd\": not one of the values accepted for Enum class: [CANCELLED, NORMAL]",
-    "path": "/exchange/1"
+  "timestamp": "2024-11-29T03:59:16.112+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "JSON parse error: Cannot deserialize value of type `com.jhpark.moneyexchange.common.ExchangeRequestStatus` from String \"cd\": not one of the values accepted for Enum class: [CANCELLED, NORMAL]",
+  "path": "/exchange/1"
 }
 ```
 
